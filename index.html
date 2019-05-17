@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+    <style>
+    </style>
+</head>
+<body>
+    
+    <p style="text-align: center; margin-top: 200px; font-size:40px; font-family: Arial, Helvetica, sans-serif;" id="output"></p>
+
+    <script>
+
+    let numerator = prompt("Pick a prime number");
+    numerator = parseInt(numerator);
+    
+    let divisors = [];
+    let isPrime = "n/a"
+
+    prime();
+
+
+
+    function prime() {        
+        isPrime = "n"
+
+            if (Math.sign(numerator) == -1) {
+                isPrime = "negative"    
+            }
+
+            else if (Math.sign(numerator) == 1) {
+                for (let denominator = 2; denominator < ((numerator + 1) / 2); denominator++) {    
+                    if (Number.isInteger(numerator / denominator)) {
+                        divisors.push(denominator);
+                        isPrime = "y";
+                    }            
+                }
+            }
+
+            else if (Math.sign(numerator) == 0) {
+                isPrime = "zero"
+            }
+
+        if (isPrime == "y") {
+            let primeLen = divisors.length;
+            let text = "";   
+                for (var i = 0; i < primeLen; i++) {
+                    text += divisors[i] + ", ";    
+                }
+                    document.getElementById("output").innerHTML = "Divisors of " + numerator + ": <br><br>"  + text;
+
+            }
+        else if (isPrime == "n") {
+            document.getElementById("output").innerHTML = numerator + " is a prime number!!";
+
+        }
+        else if (isPrime == "negative") {
+            document.getElementById("output").innerHTML = numerator + " is a negative integer. <br><br> It is not a prime number.";
+
+        }
+
+        else if (isPrime == "zero") {
+            document.getElementById("output").innerHTML = "∞";
+
+        }
+
+    }
+
+    </script>
+</body>
+</html>
+
+<!--
+
+   let i = 'pending'
+   let num = 0
+
+   while (i == 'pending') {
+        if (num < 100) {
+            num = prompt('Choose number above 100');
+        }
+        else if (num >= 99) {
+            alert('Thankyou');
+            i = 'finished';
+        }   
+    
+   }
+
+-->
