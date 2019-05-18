@@ -1,26 +1,97 @@
 <!DOCTYPE html>
 <head>
     <style>
+        
+        #header {
+            height: 150px;
+            display: block;
+            width: auto;
+            max-width: 730px;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        #warningcont {
+            height: 165px;
+            width: auto;
+            display: block;
+        }
+
+        #inputcont {
+            height: 40px;
+            width: auto;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #logo {
+            
+        }
+
+        input {
+            margin-left: auto;
+            width: 150px;
+            text-align: center;
+         
+        }
+
+        button {
+            margin-right: auto;
+   
+        }
+
+        h1 {
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif; 
+            font-size: 30px; 
+        }
+
+        p {
+            text-align: center;  
+            font-size: 30px; 
+            font-family: Arial, Helvetica, sans-serif; 
+        }
+
+        .warning {
+            font-size: 18px;
+            color: grey;
+
+        }
     </style>
 </head>
 <body>
-    
-    <p style="text-align: center; margin-top: 200px; font-size:40px; font-family: Arial, Helvetica, sans-serif;" id="output"></p>
+    <div id="header">
+        <img id="logo" src="mathisfunlogo.jpg"></img>
+    </div>        
+    <div id="warningcont">
+        <h1>Prime Number Checker</h1>
+        <p class="warning">WARNING: Do not make the number too large or it will destroy your browser session. <br><br> Don't say I didn't warn you.</p>
+    </div>
+    <div id="inputcont">
+        <input type="text" id="numerator" placeholder="Enter prime number"></input>
+        <button id="button" onclick="prime()">Enter</button>
+        
+    </div>
+    <p id="output"></p>
+    </div>
+    <script>  
 
-    <script>
 
-    let numerator = prompt("Pick a prime number");
-    numerator = parseInt(numerator);
-    
-    let divisors = [];
-    let isPrime = "n/a"
+    document.getElementById("numerator")
+        .addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById("button").click();
+            }
+        });
 
-    prime();
-
-
-
-    function prime() {        
-        isPrime = "n"
+    function prime() {  
+       
+        let numerator = document.getElementById("numerator").value;
+        let divisors = [];
+        let divTotal = 0
+        let isPrime = "n/a";
 
             if (Math.sign(numerator) == -1) {
                 isPrime = "negative"    
@@ -29,9 +100,16 @@
             else if (Math.sign(numerator) == 1) {
                 for (let denominator = 2; denominator < ((numerator + 1) / 2); denominator++) {    
                     if (Number.isInteger(numerator / denominator)) {
-                        divisors.push(denominator);
-                        isPrime = "y";
+                        divTotal += 1;
+                        divisors.push(denominator);    
                     }            
+                }
+                if (divTotal == 1) {
+                    isPrime = "y"
+                }
+
+                else if ( divTotal > 1) {
+                    isPrime = "n";
                 }
             }
 
@@ -39,17 +117,22 @@
                 isPrime = "zero"
             }
 
-        if (isPrime == "y") {
+            else {
+                isPrime = "NaN";
+            }
+
+        if (isPrime == "n") {
             let primeLen = divisors.length;
             let text = "";   
                 for (var i = 0; i < primeLen; i++) {
                     text += divisors[i] + ", ";    
                 }
-                    document.getElementById("output").innerHTML = "Divisors of " + numerator + ": <br><br>"  + text;
+                text = text.slice(0, text.length - 2)
+                document.getElementById("output").innerHTML = divTotal + " divisors of " + numerator + ": <br><br>"  + text;
 
             }
-        else if (isPrime == "n") {
-            document.getElementById("output").innerHTML = numerator + " is a prime number!!";
+        else if (isPrime == "y") {
+            document.getElementById("output").innerHTML = numerator + " is a prime number!";
 
         }
         else if (isPrime == "negative") {
@@ -60,6 +143,10 @@
         else if (isPrime == "zero") {
             document.getElementById("output").innerHTML = "∞";
 
+        }
+
+        else if (isPrime == "NaN") {
+            document.getElementById("output").innerHTML = "You fool. That is not a number.";
         }
 
     }
