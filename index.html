@@ -94,33 +94,48 @@
         let divTotal = 0
         let isPrime = "n/a";
 
+        if (Math.sign(numerator) != "NaN") {
+
+            numerator = Number(numerator);
+
             if (Math.sign(numerator) == -1) {
                 isPrime = "negative"    
             }
+           
+            else if (Math.sign(numerator) == 1 && Number.isInteger(numerator) == true) {
+                    for (let denominator = 1; denominator < ((numerator + 1) / 2); denominator++) {    
+                        if (Number.isInteger(numerator / denominator)) {
+                            divTotal += 1;
+                            divisors.push(denominator);    
+                        }            
+                    }
 
-            else if (Math.sign(numerator) == 1) {
-                for (let denominator = 2; denominator < ((numerator + 1) / 2); denominator++) {    
-                    if (Number.isInteger(numerator / denominator)) {
-                        divTotal += 1;
-                        divisors.push(denominator);    
-                    }            
-                }
-                if (divTotal == 1) {
+                    divTotal += 1;
+                    divisors.push(numerator)
+                    
+                    if (divTotal == 2) {
                     isPrime = "y"
-                }
+                    }
 
-                else if ( divTotal > 1) {
-                    isPrime = "n";
-                }
+                    else {
+                        isPrime = "n";
+                    }
+
+                    
             }
+
+            else if (Math.sign(numerator) == 1 && Number.isInteger(numerator) == false) {
+                        isPrime = "decimal"
+                    }
 
             else if (Math.sign(numerator) == 0) {
-                isPrime = "zero"
+                isPrime = "zero";
             }
+        }
 
-            else {
-                isPrime = "NaN";
-            }
+        else {
+            isPrime = "NaN";
+        }
 
         if (isPrime == "n") {
             let primeLen = divisors.length;
@@ -148,6 +163,10 @@
 
         else if (isPrime == "NaN") {
             document.getElementById("output").innerHTML = "You fool. That is not a number.";
+        }
+
+        else if (isPrime == "decimal") {
+            document.getElementById("output").innerHTML = "That is a decimal. Prime numbers must be whole numbers.";
         }
 
     }
