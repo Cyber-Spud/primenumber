@@ -98,7 +98,7 @@
 
             numerator = Number(numerator);
 
-            if (Math.sign(numerator) == -1) {
+            if (Math.sign(numerator) == -1 && Number.isInteger(numerator) == true) {
                 isPrime = "negative"    
             }
            
@@ -124,7 +124,7 @@
                     
             }
 
-            else if (Math.sign(numerator) == 1 && Number.isInteger(numerator) == false) {
+            else if (Math.sign(numerator) == 1 || Math.sign(numerator) == -1 && Number.isInteger(numerator) == false) {
                         isPrime = "decimal"
                     }
 
